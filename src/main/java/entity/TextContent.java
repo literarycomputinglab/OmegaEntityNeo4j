@@ -1,0 +1,25 @@
+package entity;
+
+import org.neo4j.ogm.annotation.NodeEntity;
+
+/**
+ *
+ * @author oakgen
+ */
+@NodeEntity
+public final class TextContent extends Content {
+
+    private String text;
+
+    public TextContent() {
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+}
