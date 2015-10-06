@@ -12,11 +12,18 @@ import org.neo4j.ogm.annotation.StartNode;
 @RelationshipEntity
 public abstract class Locus<T extends Content> extends SuperNode {
 
+    public enum PointTo {
+
+        SOURCE, CONTENT;
+    }
+
     @StartNode
     private Annotation annotation;
 
     @EndNode
     private Source<T> source;
+
+    private String pointTo;
 
     public Annotation getAnnotation() {
         return annotation;
@@ -34,9 +41,19 @@ public abstract class Locus<T extends Content> extends SuperNode {
         this.source = source;
     }
 
-    public static <T extends Locus> T locusOf(Class<T> clazz) {
+    public String getPointTo() {
+        return pointTo;
+    }
+
+    void setPointTo(String pointTo) {
+        this.pointTo = pointTo;
+    }
+
+    public static <T extends Locus> T locusOf(Class<T> clazz, PointTo pointTo) {
         try {
-            return clazz.newInstance();
+            T locus = clazz.newInstance();
+            locus.setPointTo(pointTo.name());
+            return locus;
         } catch (InstantiationException | IllegalAccessException ex) {
             throw new RuntimeException(ex);
         }
