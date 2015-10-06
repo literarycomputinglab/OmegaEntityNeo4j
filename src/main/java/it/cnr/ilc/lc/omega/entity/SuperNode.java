@@ -1,4 +1,4 @@
-package entity;
+package it.cnr.ilc.lc.omega.entity;
 
 import java.io.Serializable;
 import java.util.Date;

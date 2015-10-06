@@ -1,4 +1,4 @@
-package entity;
+package it.cnr.ilc.lc.omega.entity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,7 +20,7 @@ public final class Annotation<T extends Content, E extends Annotation.Extension>
     private E extension;
 
     @Relationship(type = "TEXTLOCUS") //WARN FORZATO TEXTLOCUS: BUG APERTO SU NEO4J
-    private List<Locus<T>> loci;
+    private List<Locus> loci;
 
     @Relationship(type = "RELATION")
     private List<Relation> relations;
@@ -28,17 +28,17 @@ public final class Annotation<T extends Content, E extends Annotation.Extension>
     private Annotation() {
     }
 
-    public Iterator<Locus<T>> getLoci() {
+    public Iterator<Locus> getLoci() {
         return loci.iterator();
     }
 
-    private void setLoci(List<Locus<T>> loci) {
+    private void setLoci(List<Locus> loci) {
         this.loci = loci;
     }
 
     public void addLocus(Locus<T> locus) {
         if (loci == null) {
-            setLoci(new ArrayList<Locus<T>>());
+            setLoci(new ArrayList<Locus>());
         }
         loci.add(locus);
     }

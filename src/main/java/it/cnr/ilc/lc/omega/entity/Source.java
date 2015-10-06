@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package entity;
+package it.cnr.ilc.lc.omega.entity;
 
 import org.neo4j.ogm.annotation.NodeEntity;
 
@@ -28,7 +28,7 @@ public class Source<T extends Content> extends SuperNode {
         this.content = content;
     }
     
-    public static <T extends Content> Source<T> sourecOf(Class<T> clazz) {
+    public static <T extends Content> Source<T> sourceOf(Class<T> clazz) {
         return new Source<>();
     }
 }

@@ -1,17 +1,17 @@
-package entity;
+package it.cnr.ilc.lc.omega.entity;
 
 import org.neo4j.ogm.annotation.EndNode;
 import org.neo4j.ogm.annotation.RelationshipEntity;
 import org.neo4j.ogm.annotation.StartNode;
 
 /**
- * 
+ *
  * @author oakgen
  * @param <T>
  */
 @RelationshipEntity
 public abstract class Locus<T extends Content> extends SuperNode {
-    
+
     @StartNode
     private Annotation annotation;
 
@@ -32,6 +32,14 @@ public abstract class Locus<T extends Content> extends SuperNode {
 
     public void setSource(Source<T> source) {
         this.source = source;
+    }
+
+    public static <T extends Locus> T locusOf(Class<T> clazz) {
+        try {
+            return clazz.newInstance();
+        } catch (InstantiationException | IllegalAccessException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
 }

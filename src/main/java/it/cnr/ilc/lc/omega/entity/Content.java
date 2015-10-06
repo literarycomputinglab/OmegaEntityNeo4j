@@ -1,4 +1,4 @@
-package entity;
+package it.cnr.ilc.lc.omega.entity;
 
 import org.neo4j.ogm.annotation.NodeEntity;
 

@@ -1,4 +1,4 @@
-package entity;
+package it.cnr.ilc.lc.omega.entity;
 
 import org.neo4j.ogm.annotation.EndNode;
 import org.neo4j.ogm.annotation.RelationshipEntity;
@@ -9,13 +9,15 @@ import org.neo4j.ogm.annotation.StartNode;
  * @author oakgen
  */
 @RelationshipEntity
-public class Relation extends SuperNode {
+public final class Relation extends SuperNode {
 
     @StartNode
     private Annotation sourceAnnotation;
 
     @EndNode
     private Annotation targetAnnotation;
+
+    private String type;
 
     public Annotation getTargetAnnotation() {
         return targetAnnotation;
@@ -33,14 +35,19 @@ public class Relation extends SuperNode {
         this.sourceAnnotation = sourceAnnotation;
     }
 
-    private String type;
-
     public String getType() {
         return type;
     }
 
-    public void setType(Enum type) {
+    private void setType(Enum type) {
         this.type = type.name();
+    }
+
+    public static Relation newInstance(Enum type) {
+        Relation r = new Relation();
+        r.setType(type);
+
+        return r;
     }
 
 }
