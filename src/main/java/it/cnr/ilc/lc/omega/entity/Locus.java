@@ -10,7 +10,7 @@ import org.neo4j.ogm.annotation.StartNode;
  * @param <T>
  */
 @RelationshipEntity
-public abstract class Locus<T extends Content> extends SuperNode {
+public class Locus<T extends Content> extends SuperNode implements Cloneable{
 
     public enum PointsTo {
 
@@ -49,6 +49,14 @@ public abstract class Locus<T extends Content> extends SuperNode {
         this.pointsTo = pointsTo;
     }
 
+    //WARN controllare
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
+    
     public static <T extends Locus> T locusOf(Class<T> clazz, PointsTo pointTo) {
         try {
             T locus = clazz.newInstance();

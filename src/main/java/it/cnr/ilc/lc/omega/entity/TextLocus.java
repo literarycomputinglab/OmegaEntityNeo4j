@@ -1,5 +1,7 @@
 package it.cnr.ilc.lc.omega.entity;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.neo4j.ogm.annotation.RelationshipEntity;
 
 /**
@@ -7,11 +9,21 @@ import org.neo4j.ogm.annotation.RelationshipEntity;
  * @author oakgen
  */
 @RelationshipEntity(type = "TEXTLOCUS")
-public class TextLocus extends Locus<TextContent> {
+public class TextLocus extends Locus<TextContent> implements Cloneable{
 
     private Integer start;
     private Integer end;
 
+    protected TextLocus(){
+        
+    }
+    
+    TextLocus(TextLocus locus) {
+        this.start = new Integer(locus.getStart());
+        this.end = new Integer(locus.getEnd());
+    }
+    
+    
     public Integer getStart() {
         return start;
     }
@@ -33,7 +45,20 @@ public class TextLocus extends Locus<TextContent> {
         }
         this.end = end;
     }
-
+ 
+    // WARN controllare
+    @Override
+    public TextLocus clone(){
+        TextLocus clone = null;
+        try {
+             clone = (TextLocus) super.clone();
+            
+        } catch (CloneNotSupportedException ex) {
+            Logger.getLogger(TextLocus.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return clone;
+    }
+    
     public static class InvocationMthodException extends RuntimeException {
 
         public InvocationMthodException(String message) {

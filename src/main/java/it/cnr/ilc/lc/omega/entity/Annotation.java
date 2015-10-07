@@ -20,6 +20,9 @@ public final class Annotation<T extends Content, E extends Annotation.Extension>
     private E extension;
 
     @Relationship(type = "TEXTLOCUS") //WARN FORZATO TEXTLOCUS: BUG APERTO SU NEO4J
+    private List<TextLocus> textloci;
+    
+    @Relationship(type = "LOCUS") //WARN FORZATO TEXTLOCUS: BUG APERTO SU NEO4J
     private List<Locus> loci;
 
     @Relationship(type = "RELATION")
@@ -32,22 +35,36 @@ public final class Annotation<T extends Content, E extends Annotation.Extension>
         return loci.iterator();
     }
 
+    public Iterator<TextLocus> getTextLoci() {
+        return textloci.iterator();
+    }
+    
     private void setLoci(List<Locus> loci) {
         this.loci = loci;
     }
 
-    public void addLocus(Locus<T> locus) {
-        if (loci == null) {
-            setLoci(new ArrayList<Locus>());
-        }
-        loci.add(locus);
+    private void setTextLoci(List<TextLocus> textloci) {
+        this.textloci = textloci;
     }
 
+    public void addLocus(Locus<T> locus) {
+        if (loci == null || textloci == null) {
+            setLoci(new ArrayList<Locus>());
+            setTextLoci(new ArrayList<TextLocus>());
+        }
+        loci.add(locus);
+        if(locus instanceof TextLocus)
+            textloci.add(((TextLocus)locus).clone());
+    }
+
+    // WARN controllare
     public boolean removeLocus(Locus<T> locus) {
-        if (loci == null) {
+        if (loci == null || textloci == null) {
             return false;
         }
-        return loci.remove(locus);
+        if(locus instanceof TextLocus)
+           return textloci.remove((TextLocus)locus);
+        else return loci.remove(locus);
     }
 
     public E getExtension() {
@@ -106,7 +123,7 @@ public final class Annotation<T extends Content, E extends Annotation.Extension>
             }
             E extension = (E) c.newInstance();
             annotation.setExtension(extension.build(builder));
-            
+
             return annotation;
         } catch (InstantiationException | IllegalAccessException ex) {
             throw new RuntimeException(ex);
