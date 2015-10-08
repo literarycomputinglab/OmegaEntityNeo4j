@@ -47,7 +47,7 @@ public class ImageLocus extends Locus<TextContent> implements Cloneable{
              clone = (ImageLocus) super.clone();
             
         } catch (CloneNotSupportedException ex) {
-            Logger.getLogger(TextLocus.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ImageLocus.class.getName()).log(Level.SEVERE, null, ex);
         }
         return clone;
     }
