@@ -11,7 +11,7 @@ public final class TextContent extends Content {
 
     private String text;
 
-    public TextContent() {
+    TextContent() {
     }
 
     public String getText() {

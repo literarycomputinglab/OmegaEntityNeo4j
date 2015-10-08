@@ -51,4 +51,6 @@ public abstract class SuperNode implements Serializable {
         this.valid = valid;
     }
 
+    // vedere se implementare il metodo clone
+    
 }

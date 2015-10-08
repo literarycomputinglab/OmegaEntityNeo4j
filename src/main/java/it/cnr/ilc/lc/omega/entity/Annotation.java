@@ -18,53 +18,55 @@ import org.neo4j.ogm.annotation.Relationship;
 public final class Annotation<T extends Content, E extends Annotation.Extension> extends Source<T> {
 
     private E extension;
-
-    @Relationship(type = "TEXTLOCUS") //WARN FORZATO TEXTLOCUS: BUG APERTO SU NEO4J
-    private List<TextLocus> textloci;
     
-    @Relationship(type = "LOCUS") //WARN FORZATO TEXTLOCUS: BUG APERTO SU NEO4J
-    private List<Locus> loci;
+    @Relationship(type = "LOCUS") //WARN FORZATO LOCUS: BUG APERTO SU NEO4J
+    //private List<Locus> loci;
+    private Map<Source, Locus> loci = new HashMap<>();
+    
+    @Relationship(type = "TEXTLOCUS") //WARN FORZATO TEXTLOCUS: BUG APERTO SU NEO4J
+    private List<TextLocus> textloci = new ArrayList<>();
+     
+    @Relationship(type = "IMAGELOCUS") //WARN FORZATO IMAGELOCUS: BUG APERTO SU NEO4J
+    private List<ImageLocus> imageloci = new ArrayList<>();
+     
+     
 
     @Relationship(type = "RELATION")
-    private List<Relation> relations;
+    private List<Relation> relations = new ArrayList<>();
 
     private Annotation() {
     }
 
     public Iterator<Locus> getLoci() {
-        return loci.iterator();
+        return loci.values().iterator();
     }
 
     public Iterator<TextLocus> getTextLoci() {
         return textloci.iterator();
     }
     
-    private void setLoci(List<Locus> loci) {
-        this.loci = loci;
-    }
-
-    private void setTextLoci(List<TextLocus> textloci) {
-        this.textloci = textloci;
-    }
+   /**
+    * WARNING: the locus has to be linked to source and target nodes 
+    * @param locus
+    * 
+    */
 
     public void addLocus(Locus<T> locus) {
-        if (loci == null || textloci == null) {
-            setLoci(new ArrayList<Locus>());
-            setTextLoci(new ArrayList<TextLocus>());
-        }
-        loci.add(locus);
+        loci.put(locus.getSource(), locus);
         if(locus instanceof TextLocus)
             textloci.add(((TextLocus)locus).clone());
+        if(locus instanceof ImageLocus)
+            imageloci.add(((ImageLocus)locus).clone());
     }
 
     // WARN controllare
     public boolean removeLocus(Locus<T> locus) {
-        if (loci == null || textloci == null) {
-            return false;
+        if(locus instanceof TextLocus){
+            return textloci.remove((TextLocus)locus);
         }
-        if(locus instanceof TextLocus)
-           return textloci.remove((TextLocus)locus);
-        else return loci.remove(locus);
+        else if (locus instanceof ImageLocus)
+           return imageloci.remove((ImageLocus)locus);
+        else return loci.remove(locus.getSource(), locus); // Controllare se non esistono più TextLocus e ImgeLocus con stesso source
     }
 
     public E getExtension() {
@@ -74,26 +76,18 @@ public final class Annotation<T extends Content, E extends Annotation.Extension>
     private void setExtension(E extension) {
         this.extension = extension;
     }
-
-    private void setRelations(List<Relation> relations) {
-        this.relations = relations;
-    }
-
+   
     public Iterator<Relation> getRelations() {
         return relations.iterator();
     }
 
     public void addRelation(Relation relation) {
-        if (relations == null) {
-            setRelations(new ArrayList<Relation>());
-        }
+        
         relations.add(relation);
     }
 
     public boolean removeRelation(Relation relation) {
-        if (relations == null) {
-            return false;
-        }
+       
         return relations.remove(relation);
     }
 
