@@ -15,9 +15,17 @@ import org.neo4j.ogm.annotation.NodeEntity;
 
 @NodeEntity
 public class ImageContent extends Content{
-    
-    private Byte[] image;
     private String mimetype; 
+    private Byte[] image;
+   
+    public String getMimetype() {
+        return mimetype;
+    }
+
+    public void setMimetype(String mimetype) {
+        this.mimetype = mimetype;
+    }
+    
 
     ImageContent() {
     }
@@ -30,13 +38,6 @@ public class ImageContent extends Content{
         this.image = image;
     }
 
-    public String getMimetype() {
-        return mimetype;
-    }
-
-    public void setMimetype(String mimetype) {
-        this.mimetype = mimetype;
-    }
     
 
 }

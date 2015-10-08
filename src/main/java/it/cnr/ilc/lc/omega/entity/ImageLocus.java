@@ -15,7 +15,7 @@ import org.neo4j.ogm.annotation.RelationshipEntity;
  */
 
 @RelationshipEntity(type = "IMAGELOCUS")
-public class ImageLocus extends Locus<TextContent> implements Cloneable{
+public class ImageLocus extends Locus<ImageContent> implements Cloneable{
 
     private String WKTstr;
        

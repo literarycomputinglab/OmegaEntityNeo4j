@@ -20,8 +20,8 @@ public final class Annotation<T extends Content, E extends Annotation.Extension>
     private E extension;
     
     @Relationship(type = "LOCUS") //WARN FORZATO LOCUS: BUG APERTO SU NEO4J
-    //private List<Locus> loci;
-    private Map<Source, Locus> loci = new HashMap<>();
+    private List<Locus> loci = new ArrayList<>();
+    //private Map<Source, Locus> loci = new HashMap<>(); // sembra non funzionare
     
     @Relationship(type = "TEXTLOCUS") //WARN FORZATO TEXTLOCUS: BUG APERTO SU NEO4J
     private List<TextLocus> textloci = new ArrayList<>();
@@ -38,7 +38,7 @@ public final class Annotation<T extends Content, E extends Annotation.Extension>
     }
 
     public Iterator<Locus> getLoci() {
-        return loci.values().iterator();
+        return loci.iterator(); //loci.values().iterator();
     }
 
     public Iterator<TextLocus> getTextLoci() {
@@ -52,7 +52,8 @@ public final class Annotation<T extends Content, E extends Annotation.Extension>
     */
 
     public void addLocus(Locus<T> locus) {
-        loci.put(locus.getSource(), locus);
+        if(true) // un locus deve essere aggiunto solo se non c'è alcun altra locus che punti alla medesima source ????
+            loci.add(locus); // loci.put(locus.getSource(), locus);
         if(locus instanceof TextLocus)
             textloci.add(((TextLocus)locus).clone());
         if(locus instanceof ImageLocus)
@@ -61,12 +62,13 @@ public final class Annotation<T extends Content, E extends Annotation.Extension>
 
     // WARN controllare
     public boolean removeLocus(Locus<T> locus) {
-        if(locus instanceof TextLocus){
+        if(locus instanceof TextLocus)
             return textloci.remove((TextLocus)locus);
-        }
+        
         else if (locus instanceof ImageLocus)
            return imageloci.remove((ImageLocus)locus);
-        else return loci.remove(locus.getSource(), locus); // Controllare se non esistono più TextLocus e ImgeLocus con stesso source
+        
+        else return loci.remove(locus); //loci.remove(locus.getSource(), locus); // Controllare se non esistono più TextLocus e ImgeLocus con stesso source
     }
 
     public E getExtension() {
