@@ -5,6 +5,7 @@
  */
 package it.cnr.ilc.lc.omega.entity;
 
+import java.net.URI;
 import org.neo4j.ogm.annotation.NodeEntity;
 
 /**
@@ -16,6 +17,7 @@ import org.neo4j.ogm.annotation.NodeEntity;
 public class Source<T extends Content> extends SuperNode {
 
     private T content;
+    
 
     protected Source() {
     }

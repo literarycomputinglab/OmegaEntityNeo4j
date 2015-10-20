@@ -9,6 +9,8 @@ import org.neo4j.ogm.annotation.NodeEntity;
 @NodeEntity
 public abstract class Content extends SuperNode {
 
+    // FIXME: valutare se si vuole inserire il memetype all'interno del content supercalsse!
+    
     public static <T extends Content> T contentOf(Class<T> clazz) {
         try {
             return clazz.newInstance();
