@@ -15,7 +15,7 @@ public abstract class SuperNode implements Serializable {
         HISTORY, VALID, REMOVED
     }
 
-    private URI uri; // FIXME: valutare se la proprietà URI è da considerarsi come proprietà di superclasse.
+    private String uri; // FIXME: valutare se la proprietà URI è da considerarsi come proprietà di superclasse.
     private Long id;
     private Status status;
     private Date time;
@@ -57,11 +57,11 @@ public abstract class SuperNode implements Serializable {
 
     // vedere se implementare il metodo clone
 
-    public URI getUri() {
+    public String getUri() {
         return uri;
     }
 
-    public void setUri(URI uri) {
+    public void setUri(String uri) {
         this.uri = uri;
     }
     
