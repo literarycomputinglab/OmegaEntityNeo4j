@@ -12,6 +12,7 @@ public final class TextContent extends Content {
     private String text;
 
     TextContent() {
+        super("text/plain");
     }
 
     public String getText() {
@@ -21,6 +22,17 @@ public final class TextContent extends Content {
     public void setText(String text) {
         this.text = text;
     }
+
+//    @Override
+//    public String getMimetype() {
+//        return mimetype;
+//    }
+//
+//    @Override
+//    public void setMimetype(String mimetype) {
+//       this.mimetype = mimetype;
+//       
+//    }
     
 
 }

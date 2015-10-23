@@ -15,19 +15,22 @@ import org.neo4j.ogm.annotation.NodeEntity;
 
 @NodeEntity
 public class ImageContent extends Content{
-    private String mimetype; 
+    //private String mimetype; 
     private Byte[] image;
    
-    public String getMimetype() {
-        return mimetype;
-    }
+//    @Override
+//    public String getMimetype() {
+//        return super.mimetype;
+//    }
 
+    @Override
     public void setMimetype(String mimetype) {
-        this.mimetype = mimetype;
+        super.mimetype = mimetype;
     }
     
 
     ImageContent() {
+        super("image/*");
     }
 
     public Byte[] getImage() {
