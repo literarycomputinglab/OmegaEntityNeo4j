@@ -98,8 +98,8 @@ public final class Annotation<T extends Content, E extends Annotation.Extension>
         protected Extension() {
         }
 
-        <T extends Extension> T build(Builder<T> builder) {
-            return builder.build((T) this);
+        <E extends Extension> E build(AnnotationBuilder<E> builder) {
+            return builder.build((E) this);
         }
     }
 
@@ -109,7 +109,7 @@ public final class Annotation<T extends Content, E extends Annotation.Extension>
         LOOKUP_TABLE.put(type, clazz);
     }
 
-    public static <T extends Content, E extends Annotation.Extension> Annotation<T, E> newAnnotation(String type, Builder<E> builder) {
+    public static <T extends Content, E extends Annotation.Extension> Annotation<T, E> newAnnotation(String type, AnnotationBuilder<E> builder) {
 
         try {
             Annotation<T, E> annotation = new Annotation<>();

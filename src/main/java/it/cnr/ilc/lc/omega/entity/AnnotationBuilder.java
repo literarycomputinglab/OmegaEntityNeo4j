@@ -10,7 +10,7 @@ package it.cnr.ilc.lc.omega.entity;
  * @author angelo
  * @param <T>
  */
-public interface Builder<T extends Annotation.Extension> {
+public interface AnnotationBuilder<T extends Annotation.Extension> {
     
      T build(T extension);
     
