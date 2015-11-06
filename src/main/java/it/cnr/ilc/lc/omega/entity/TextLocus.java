@@ -19,8 +19,8 @@ public class TextLocus extends Locus<TextContent> implements Cloneable{
     }
     
     TextLocus(TextLocus locus) {
-        this.start = new Integer(locus.getStart());
-        this.end = new Integer(locus.getEnd());
+        this.start = locus.getStart();
+        this.end = locus.getEnd();
     }
     
     

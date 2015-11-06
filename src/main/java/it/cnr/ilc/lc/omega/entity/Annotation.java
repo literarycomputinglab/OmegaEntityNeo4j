@@ -15,7 +15,7 @@ import org.neo4j.ogm.annotation.Relationship;
  * @param <E>
  */
 @NodeEntity
-public final class Annotation<T extends Content, E extends Annotation.Extension> extends Source<T> {
+public final class Annotation<T extends Content, E extends Annotation.Type> extends Source<T> {
 
     private E extension;
     
@@ -93,23 +93,23 @@ public final class Annotation<T extends Content, E extends Annotation.Extension>
         return relations.remove(relation);
     }
 
-    public static abstract class Extension extends SuperNode {
+    public static abstract class Type extends SuperNode {
 
-        protected Extension() {
+        protected Type() {
         }
 
-        <E extends Extension> E build(AnnotationBuilder<E> builder) {
+        <E extends Type> E build(AnnotationBuilder<E> builder) {
             return builder.build((E) this);
         }
     }
 
-    private static final Map<String, Class<? extends Annotation.Extension>> LOOKUP_TABLE = new HashMap<>();
+    private static final Map<String, Class<? extends Annotation.Type>> LOOKUP_TABLE = new HashMap<>();
 
-    public static void register(String type, Class<? extends Annotation.Extension> clazz) {
+    public static void register(String type, Class<? extends Annotation.Type> clazz) {
         LOOKUP_TABLE.put(type, clazz);
     }
 
-    public static <T extends Content, E extends Annotation.Extension> Annotation<T, E> newAnnotation(String type, AnnotationBuilder<E> builder) {
+    public static <T extends Content, E extends Annotation.Type> Annotation<T, E> newAnnotation(String type, AnnotationBuilder<E> builder) {
 
         try {
             Annotation<T, E> annotation = new Annotation<>();
