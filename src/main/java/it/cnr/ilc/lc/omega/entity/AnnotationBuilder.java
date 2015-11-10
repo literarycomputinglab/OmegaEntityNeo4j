@@ -11,7 +11,11 @@ package it.cnr.ilc.lc.omega.entity;
  * @param <T>
  */
 public interface AnnotationBuilder<T extends Annotation.Type> {
+
+    T build(T extension);
+
+    void setURI(String uri);
     
-     T build(T extension);
-    
+    String getURI();
+
 }

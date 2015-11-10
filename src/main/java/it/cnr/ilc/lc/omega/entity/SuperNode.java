@@ -1,7 +1,7 @@
 package it.cnr.ilc.lc.omega.entity;
 
+import it.cnr.ilc.lc.omega.exception.InvalidURIException;
 import java.io.Serializable;
-import java.net.URI;
 import java.util.Date;
 
 /**
@@ -19,7 +19,7 @@ public abstract class SuperNode implements Serializable {
     private Long id;
     private Status status;
     private Date time;
-    private SuperNode valid;    
+    private SuperNode valid;
 
     public Long getId() {
         return id;
@@ -52,17 +52,18 @@ public abstract class SuperNode implements Serializable {
     public void setValid(SuperNode valid) {
         this.valid = valid;
     }
-    
-    
 
     // vedere se implementare il metodo clone
-
     public String getUri() {
         return uri;
     }
 
-    public void setUri(String uri) {
-        this.uri = uri;
+    public void setUri(String uri) throws InvalidURIException {
+        if (null != uri && !"".equals(uri)) {
+            this.uri = uri;
+        } else {
+            throw new InvalidURIException("NULL or Empty URI are not permitted");
+        }
+
     }
-    
 }
