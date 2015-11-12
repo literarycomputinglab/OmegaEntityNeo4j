@@ -5,6 +5,8 @@
  */
 package it.cnr.ilc.lc.omega.entity;
 
+import java.net.URI;
+
 /**
  *
  * @author angelo
@@ -14,8 +16,8 @@ public interface AnnotationBuilder<T extends Annotation.Type> {
 
     T build(T extension);
 
-    void setURI(String uri);
+    void setURI(URI uri);
     
-    String getURI();
+    URI getURI();
 
 }

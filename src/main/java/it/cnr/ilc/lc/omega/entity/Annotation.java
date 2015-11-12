@@ -124,7 +124,7 @@ public final class Annotation<T extends Content, E extends Annotation.Type> exte
             E extension = (E) c.newInstance();
             annotation.setType(extension.build(builder));
             
-            annotation.setUri(builder.getURI()); //puo' sollevare eccezione se URI e' nulla o vuota
+            annotation.setUri(builder.getURI().toASCIIString()); //puo' sollevare eccezione se URI e' nulla o vuota
             
             return annotation;
             
