@@ -9,7 +9,7 @@ import org.neo4j.ogm.annotation.RelationshipEntity;
  * @author oakgen
  */
 @RelationshipEntity(type = "TEXTLOCUS")
-public class TextLocus extends Locus<TextContent> implements Cloneable{
+public class TextLocus extends Locus<TextContent> implements Cloneable {
 
     private Integer start;
     private Integer end;

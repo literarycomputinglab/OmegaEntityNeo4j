@@ -55,8 +55,6 @@ public class Locus<T extends Content> extends SuperNode implements Cloneable{
         return super.clone(); //To change body of generated methods, choose Tools | Templates.
     }
 
-    
-    
     public static <T extends Locus> T locusOf(Class<T> clazz, PointsTo pointTo) {
         try {
             T locus = clazz.newInstance();

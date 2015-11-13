@@ -15,6 +15,7 @@ import org.neo4j.ogm.annotation.Relationship;
  * @param <T>
  * @param <E>
  */
+
 @NodeEntity
 public final class Annotation<T extends Content, E extends Annotation.Type> extends Source<T> {
 
@@ -47,10 +48,11 @@ public final class Annotation<T extends Content, E extends Annotation.Type> exte
     /**
      * WARNING: the locus has to be linked to source and target nodes
      *
+     * @param <V>
      * @param locus
      *
      */
-    public void addLocus(Locus<T> locus) {
+    public <V extends Content> void addLocus(Locus<V> locus) {
         if (true) // un locus deve essere aggiunto solo se non c'è alcun altra locus che punti alla medesima source ????
         {
             loci.add(locus); // loci.put(locus.getSource(), locus);
@@ -64,7 +66,7 @@ public final class Annotation<T extends Content, E extends Annotation.Type> exte
     }
 
     // WARN controllare
-    public boolean removeLocus(Locus<T> locus) {
+    public  <V extends Content> boolean removeLocus(Locus<V> locus) {
         if (locus instanceof TextLocus) {
             return textloci.remove((TextLocus) locus);
         } else if (locus instanceof ImageLocus) {
