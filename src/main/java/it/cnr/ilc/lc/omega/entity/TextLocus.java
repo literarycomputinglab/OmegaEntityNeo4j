@@ -8,6 +8,8 @@ import org.neo4j.ogm.annotation.RelationshipEntity;
  *
  * @author oakgen
  */
+
+// FIXME: considerare la classe final e i campi final. Considerare cioè la classe immutabile.
 @RelationshipEntity(type = "TEXTLOCUS")
 public class TextLocus extends Locus<TextContent> implements Cloneable {
 

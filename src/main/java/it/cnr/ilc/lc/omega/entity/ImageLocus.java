@@ -14,6 +14,8 @@ import org.neo4j.ogm.annotation.RelationshipEntity;
  * @author angelo
  */
 
+// FIXME: considerare la classe final e i campi final. Considerare cioè la classe immutabile.
+
 @RelationshipEntity(type = "IMAGELOCUS")
 public class ImageLocus extends Locus<ImageContent> implements Cloneable{
 
