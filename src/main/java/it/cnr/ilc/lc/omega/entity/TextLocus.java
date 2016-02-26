@@ -11,7 +11,7 @@ import org.neo4j.ogm.annotation.RelationshipEntity;
 
 // FIXME: considerare la classe final e i campi final. Considerare cioè la classe immutabile.
 @RelationshipEntity(type = "TEXTLOCUS")
-public class TextLocus extends Locus<TextContent> implements Cloneable {
+public final class TextLocus extends Locus<TextContent> implements Cloneable {
 
     private Integer start;
     private Integer end;
@@ -48,7 +48,6 @@ public class TextLocus extends Locus<TextContent> implements Cloneable {
         this.end = end;
     }
  
-    // WARN controllare
     @Override
     public TextLocus clone(){
         TextLocus clone = null;
@@ -56,7 +55,7 @@ public class TextLocus extends Locus<TextContent> implements Cloneable {
              clone = (TextLocus) super.clone();
             
         } catch (CloneNotSupportedException ex) {
-            Logger.getLogger(TextLocus.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException(ex);
         }
         return clone;
     }

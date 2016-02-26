@@ -23,16 +23,4 @@ public final class TextContent extends Content {
         this.text = text;
     }
 
-//    @Override
-//    public String getMimetype() {
-//        return mimetype;
-//    }
-//
-//    @Override
-//    public void setMimetype(String mimetype) {
-//       this.mimetype = mimetype;
-//       
-//    }
-    
-
 }

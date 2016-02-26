@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.cnr.ilc.lc.omega.entity;
 
 import java.net.URI;
@@ -30,7 +25,9 @@ public class Source<T extends Content> extends SuperNode {
         this.content = content;
     }
     
-    public static <T extends Content> Source<T> sourceOf(Class<T> clazz) {
-        return new Source<>();
+    public static <T extends Content> Source<T> sourceOf(Class<T> clazz, URI uri) {
+        Source newSource = new Source<>();
+        newSource.setUri(uri.toASCIIString());
+        return  newSource;
     }
 }

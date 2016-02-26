@@ -17,12 +17,12 @@ public abstract class AbstractAnnotationBuilder<T extends Annotation.Type> imple
     URI uri;
 
     @Override
-    public void setURI(URI uri) {
+    final public void setURI(URI uri) {
         this.uri = uri;
     }
 
     @Override
-    public URI getURI() {
+    final public URI getURI() {
         return uri;
     }
 

@@ -3,6 +3,8 @@ package it.cnr.ilc.lc.omega.entity;
 import it.cnr.ilc.lc.omega.exception.InvalidURIException;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Objects;
 
 /**
  *
@@ -58,12 +60,40 @@ public abstract class SuperNode implements Serializable {
         return uri;
     }
 
-    public void setUri(String uri) throws InvalidURIException {
+    public void setUri(String uri) {
         if (null != uri && !"".equals(uri)) {
             this.uri = uri;
         } else {
-            throw new InvalidURIException("NULL or Empty URI are not permitted");
+            throw new NullPointerException("NULL or Empty URI are not permitted");
         }
 
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (uri != null ? uri.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+
+        final SuperNode other = (SuperNode) obj;
+
+        if (!Objects.equals(this.uri, other.uri)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
+    }
+
 }

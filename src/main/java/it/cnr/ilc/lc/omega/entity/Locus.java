@@ -1,5 +1,6 @@
 package it.cnr.ilc.lc.omega.entity;
 
+import java.net.URI;
 import org.neo4j.ogm.annotation.EndNode;
 import org.neo4j.ogm.annotation.RelationshipEntity;
 import org.neo4j.ogm.annotation.StartNode;
@@ -29,7 +30,7 @@ public class Locus<T extends Content> extends SuperNode implements Cloneable{
         return annotation;
     }
 
-    public void setAnnotation(Annotation annotation) {
+    void setAnnotation(Annotation annotation) {
         this.annotation = annotation;
     }
 
@@ -49,16 +50,16 @@ public class Locus<T extends Content> extends SuperNode implements Cloneable{
         this.pointsTo = pointsTo;
     }
 
-    //WARN controllare
     @Override
     public Object clone() throws CloneNotSupportedException {
-        return super.clone(); //To change body of generated methods, choose Tools | Templates.
+        return super.clone();
     }
 
-    public static <T extends Locus> T locusOf(Class<T> clazz, PointsTo pointTo) {
+    public static <T extends Locus> T locusOf(Class<T> clazz, URI uri, PointsTo pointTo) {
         try {
             T locus = clazz.newInstance();
             locus.setPointsTo(pointTo.name());
+            locus.setUri(uri.toASCIIString());
             return locus;
         } catch (InstantiationException | IllegalAccessException ex) {
             throw new RuntimeException(ex);
