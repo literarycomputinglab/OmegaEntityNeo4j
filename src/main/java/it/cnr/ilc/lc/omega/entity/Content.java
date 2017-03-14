@@ -9,11 +9,9 @@ import org.neo4j.ogm.annotation.NodeEntity;
 @NodeEntity
 public abstract class Content extends SuperNode {
 
-    // FIXME: valutare se si vuole inserire il memetype all'interno del content supercalsse!
-    // valutare se mettere un set per il contenuto
-    protected String mimetype = "";
+    private String mimetype = "";
 
-     Content(String mimetype) {
+    protected Content(String mimetype) {
         this.mimetype = mimetype;
     }
 
@@ -21,7 +19,7 @@ public abstract class Content extends SuperNode {
         return mimetype;
     }
 
-    public void setMimetype(String mimetype) { //FIXME: neo4j vuole il metodo pubblico !!!
+    public void setMimetype(String mimetype) { //NOTA: neo4j vuole il metodo pubblico !!!
         this.mimetype = mimetype;
     }
 

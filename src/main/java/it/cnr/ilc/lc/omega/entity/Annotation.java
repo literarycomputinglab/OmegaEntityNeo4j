@@ -15,7 +15,6 @@ import org.neo4j.ogm.annotation.Relationship;
  * @param <T>
  * @param <E>
  */
-
 @NodeEntity
 public final class Annotation<T extends Content, E extends Annotation.Type> extends Source<T> {
 
@@ -23,7 +22,6 @@ public final class Annotation<T extends Content, E extends Annotation.Type> exte
 
     @Relationship(type = "LOCUS") //WARN FORZATO LOCUS: BUG APERTO SU NEO4J
     private List<Locus> loci = new ArrayList<>();
-    //private Map<Source, Locus> loci = new HashMap<>(); // sembra non funzionare
 
     @Relationship(type = "TEXTLOCUS") //WARN FORZATO TEXTLOCUS: BUG APERTO SU NEO4J
     private List<TextLocus> textloci = new ArrayList<>();
@@ -37,12 +35,12 @@ public final class Annotation<T extends Content, E extends Annotation.Type> exte
     private Annotation() {
     }
 
-    public Iterator<Locus> getLoci() {
-        return loci.iterator(); //loci.values().iterator();
+    public Iterable<TextLocus> getTextLoci() {
+        return textloci;
     }
 
-    public Iterator<TextLocus> getTextLoci() {
-        return textloci.iterator();
+    public Iterable<ImageLocus> getImageLoci() {
+        return imageloci;
     }
 
     /**
@@ -53,27 +51,29 @@ public final class Annotation<T extends Content, E extends Annotation.Type> exte
      *
      */
     public <V extends Content> void addLocus(Locus<V> locus) {
-        if (true) // un locus deve essere aggiunto solo se non c'è alcun altra locus che punti alla medesima source ????
-        {
-            loci.add(locus); // loci.put(locus.getSource(), locus);
-        }
+        locus.setAnnotation(this);
         if (locus instanceof TextLocus) {
             textloci.add(((TextLocus) locus).clone());
         }
         if (locus instanceof ImageLocus) {
             imageloci.add(((ImageLocus) locus).clone());
         }
+        loci.add(locus);
     }
 
     // WARN controllare
-    public  <V extends Content> boolean removeLocus(Locus<V> locus) {
+    public <V extends Content> boolean removeLocus(Locus<V> locus) {
         if (locus instanceof TextLocus) {
-            return textloci.remove((TextLocus) locus);
+            textloci.remove((TextLocus) locus);
         } else if (locus instanceof ImageLocus) {
-            return imageloci.remove((ImageLocus) locus);
-        } else {
-            return loci.remove(locus); //loci.remove(locus.getSource(), locus); // Controllare se non esistono più TextLocus e ImgeLocus con stesso source
+            imageloci.remove((ImageLocus) locus);
         }
+        for (int i = 0; i < loci.size(); i++) {
+             if (loci.get(i).getUri().equals(locus.getUri())) {
+               return loci.remove(i) != null;
+            }
+        }
+        return false;
     }
 
     public E getType() {
@@ -125,11 +125,11 @@ public final class Annotation<T extends Content, E extends Annotation.Type> exte
             }
             E extension = (E) c.newInstance();
             annotation.setType(extension.build(builder));
-            
+
             annotation.setUri(builder.getURI().toASCIIString()); //puo' sollevare eccezione se URI e' nulla o vuota
-            
+
             return annotation;
-            
+
         } catch (InstantiationException | IllegalAccessException ex) {
             throw new RuntimeException(ex);
         }

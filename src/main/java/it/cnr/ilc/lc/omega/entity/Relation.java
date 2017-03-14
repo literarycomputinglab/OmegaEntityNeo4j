@@ -11,13 +11,17 @@ import org.neo4j.ogm.annotation.StartNode;
 @RelationshipEntity
 public final class Relation extends SuperNode {
 
+    final private String type;
+
     @StartNode
     private Annotation sourceAnnotation;
 
     @EndNode
     private Annotation targetAnnotation;
 
-    private String type;
+    private Relation(Enum type) {
+        this.type = type.name();
+    }
 
     public Annotation getTargetAnnotation() {
         return targetAnnotation;
@@ -39,14 +43,8 @@ public final class Relation extends SuperNode {
         return type;
     }
 
-    private void setType(Enum type) {
-        this.type = type.name();
-    }
-
     public static Relation newInstance(Enum type) {
-        Relation r = new Relation();
-        r.setType(type);
-
+        Relation r = new Relation(type);
         return r;
     }
 
